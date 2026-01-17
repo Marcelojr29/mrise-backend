@@ -96,9 +96,15 @@ export class MessagesController {
   async update(
     @Param('id') id: string,
     @Body() updateMessageDto: UpdateMessageDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser() user: any,
   ) {
-    const message = await this.messagesService.update(id, updateMessageDto, userId);
+    if (!id || id === 'undefined' || id === 'null') {
+      return {
+        success: false,
+        message: 'ID da mensagem inválido ou não fornecido',
+      };
+    }
+    const message = await this.messagesService.update(id, updateMessageDto, user?.userId);
     return {
       success: true,
       data: message,

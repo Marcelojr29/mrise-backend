@@ -33,5 +33,4 @@ export class User {
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // Índices para otimização
-UserSchema.index({ email: 1 });
 UserSchema.index({ isActive: 1 });
