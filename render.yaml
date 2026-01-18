@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: mrise-tech-backend
+    env: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
+    autoDeploy: true
+    scaling:
+      minInstances: 1
+      maxInstances: 1
+      targetMemoryPercent: 80
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+
+databases:
+  - name: mrisetech-db
+    databaseName: mrisetech
+    user: mrisetech_admin
+    plan: free
+    ipAllowList: []
